@@ -8,6 +8,7 @@
       "type": "Veggies"
     },
     {
+      "id": 2, 
       "name": "potato", 
       "quantity": 5, 
       "reorderPoint": 8, 
