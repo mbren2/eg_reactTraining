@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getFoods } from "./api/foodsApi";
+import { getFoods, deleteFood } from "./api/foodsApi";
 
 type Food = {
+  id: number;
   name: string;
   quantity: number;
   reorderPoint: number;
@@ -59,7 +60,16 @@ export function App() {
           {/* Exercise 3: Add a delete button next to the name. WHen clicked, alert('clicked') */}
           {foods.map((food) => (
             <tr key={food.name}>
-              <button onClick={() => alert('clicked')}>Delete</button>
+              <button onClick={async () => {
+                await deleteFood(food.id);
+                //returns a new array w/ the id that was just deleted ommitted 
+                const newFoods = foods.filter((f) => f.id !== food.id);
+                setFoods(newFoods);
+                //need to remove the deleted food from the state
+              }}
+              >
+                Delete
+              </button>
               <td>{food.name}</td>
               <td>{food.quantity}</td>
               <td>{food.reorderPoint}</td>
