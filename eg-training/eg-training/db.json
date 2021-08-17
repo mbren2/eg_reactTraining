@@ -1,0 +1,17 @@
+{
+  "foods": [
+    {
+      "id": 1, 
+      "name": "carrot", 
+      "quantity": 1, 
+      "reorderPoint": 4,
+      "type": "Veggies"
+    },
+    {
+      "name": "potato", 
+      "quantity": 5, 
+      "reorderPoint": 8, 
+      "type": "Veggies"
+    }
+  ]
+}
