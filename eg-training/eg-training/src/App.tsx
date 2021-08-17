@@ -20,14 +20,14 @@ export function App() {
   useEffect(() => {
     async function callGetFoods() {
       const response = await getFoods();
-      debugger;
       if(!response.ok) throw new Error("Call to getFoods has failed.");
       const json  = await response.json();
       //calling setFoods here will store it "in state" with the logic above
       setFoods(json);
     }
     callGetFoods();
-  });
+    //using an empty array for useEffect since we only want this to run once 
+  }, []);
 
   function renderFoods() {
     {
@@ -48,6 +48,7 @@ export function App() {
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>name</th>
             <th>quantity</th>
             <th>reorderPoint</th>
@@ -55,8 +56,10 @@ export function App() {
           </tr>
         </thead>
         <tbody>
+          {/* Exercise 3: Add a delete button next to the name. WHen clicked, alert('clicked') */}
           {foods.map((food) => (
             <tr key={food.name}>
+              <button onClick={() => alert('clicked')}>Delete</button>
               <td>{food.name}</td>
               <td>{food.quantity}</td>
               <td>{food.reorderPoint}</td>

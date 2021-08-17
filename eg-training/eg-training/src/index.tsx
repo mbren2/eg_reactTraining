@@ -11,6 +11,7 @@ const headStyle = {color: "blue", marginBottom: 10 };
 //For                                                   htmlFor
 //inline styles in HTML are strings                     Inline styles are objects
 // <!-- comments like this -->                          {/*comments like this*/}
+//Attributes are kebab-cased                            props are camelCased
 function Heading(props: any) {
     return (<h1 className="head" style={headStyle}>
         {props.children}
