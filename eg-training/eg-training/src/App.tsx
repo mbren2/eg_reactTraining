@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getFoods, deleteFood } from "./api/foodsApi";
+import { getFoods, deleteFood, addFood } from "./api/foodsApi";
 import { Input } from "./shared/input";
 import { Select } from "./shared/select";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export type Food = {
   id: number;
@@ -83,10 +86,27 @@ export function App() {
     });
   }
 
+async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Exercise 2: Save form data. 
+  // Tip: http://localhost:3001/foods/
+  // Tip: Use POST
+  event.preventDefault();
+
+  try {
+    const addedFood = await addFood(newFood);
+    setFoods([...foods, addedFood]);
+    setNewFood(emptyFood);
+    toast.success("Food saved! 🦄");
+  } catch (error) {
+    toast.error("Failed to add");
+  }
+}
+
   return (
     //Use this empty tag (opposed to using a div) to give these elements a parent element
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
     <>
+      <ToastContainer />
       <h1>Pantry Manager</h1>
 
       {/* Day 2|Exercise 1: Create a reusable select and consume it below for food type.
@@ -99,7 +119,7 @@ export function App() {
     options:SelectOption[];
       */}
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input 
           onChange={onChange} 
           id="name" 
