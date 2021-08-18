@@ -132,6 +132,7 @@ export function App() {
             {label:"Fruit", value:"Fruit"}
             ]}
         />
+        <input className="btn btn-primary" type="submit" value="Save Food" />
       </form>
 
       <table>
