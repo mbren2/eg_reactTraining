@@ -58,8 +58,12 @@ export function App() {
     ));
   }
 
-  function onNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
+  //We've now implemented a single onChange handler by convention
+  //id corelates to the property in state
+  // you can figure that out by setting a debugger below, hitting the dev tools console and 
+  // seeing that ID is set to the value at this point
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value, id } = event.target;
     //How do we create a new object that contains one updated property?
     //You can create a const, then pass that into setNewFood()
     //const _newFood = {
@@ -70,7 +74,10 @@ export function App() {
     //Or, you can call the above within the setNewFood() call here, 
     setNewFood({
       ...newFood,
-      name: value,
+      //Instead of hardcoding "name" below and then creating a different onChange function
+      //for every type of onChange in our form, we can snag that property from the event like so,
+      //Note, this is using the id from above => const { value, id } = event.target;
+      [id]: value,
     });
   }
 
@@ -92,19 +99,19 @@ export function App() {
 
       <form>
         <Input 
-          onChange={onNameChange} 
+          onChange={onChange} 
           id="name" 
           label="Name" 
           value={newFood.name}
         />
         <Input 
-          onChange={onNameChange} 
+          onChange={onChange} 
           id="quantity" 
           label="Quantity" 
           value={newFood.quantity.toString()}
         />
         <Input 
-          onChange={onNameChange} 
+          onChange={onChange} 
           id="minQuantity" 
           label="Min Quantity" 
           value={newFood.reorderPoint.toString()}
