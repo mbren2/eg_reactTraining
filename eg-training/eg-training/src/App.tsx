@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFoods, deleteFood } from "./api/foodsApi";
+import { Input } from "./shared/input";
+import { Select } from "./shared/select";
 
 export type Food = {
   id: number;
@@ -17,6 +19,12 @@ export type Food = {
 export function App() {
   //Use this useState to deconstruct an array
   const [foods, setFoods] =  useState<Food[]>([]);
+
+  //The long-hand version of the line above
+  //const foodStateArray = useState<Food[]>([]);
+  //const foods = foodStateArray[0];
+  //const setFoods = foodStateArray[1];
+
 
   useEffect(() => {
     async function callGetFoods() {
@@ -43,6 +51,29 @@ export function App() {
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
     <>
       <h1>Pantry Manager</h1>
+
+      {/* Day 2|Exercise 1: Create a reusable select and consume it below for food type.
+          1. Vegetable
+          2. Grain 
+          3. Fruit      
+
+              id:string;
+    label:string;
+    options:SelectOption[];
+      */}
+
+      <form>
+        <Input id="name" label="Name" />
+        <Input id="quantity" label="Quantity" />
+        <Input id="minQuantity" label="Min Quantity" />
+        <Select id="type" label="Type" options={[
+          {label:"Vegetable", value:"Vegetable"},
+          {label:"Grain", value:"Grain"},
+          {label:"Fruit", value:"Fruit"}
+          ]}
+        />
+      </form>
+
       <table>
         <thead>
           <tr>
