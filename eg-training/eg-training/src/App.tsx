@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getFoods, deleteFood } from "./api/foodsApi";
 import { Input } from "./shared/input";
 import { Select } from "./shared/select";
@@ -58,6 +58,22 @@ export function App() {
     ));
   }
 
+  function onNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    //How do we create a new object that contains one updated property?
+    //You can create a const, then pass that into setNewFood()
+    //const _newFood = {
+    //  ...newFood,
+    //  name: value,
+    //}
+    //setNewFood(_newFood);
+    //Or, you can call the above within the setNewFood() call here, 
+    setNewFood({
+      ...newFood,
+      name: value,
+    });
+  }
+
   return (
     //Use this empty tag (opposed to using a div) to give these elements a parent element
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
@@ -75,9 +91,24 @@ export function App() {
       */}
 
       <form>
-        <Input id="name" label="Name" value={newFood.name}/>
-        <Input id="quantity" label="Quantity" value={newFood.quantity.toString()}/>
-        <Input id="minQuantity" label="Min Quantity" value={newFood.reorderPoint.toString()}/>
+        <Input 
+          onChange={onNameChange} 
+          id="name" 
+          label="Name" 
+          value={newFood.name}
+        />
+        <Input 
+          onChange={onNameChange} 
+          id="quantity" 
+          label="Quantity" 
+          value={newFood.quantity.toString()}
+        />
+        <Input 
+          onChange={onNameChange} 
+          id="minQuantity" 
+          label="Min Quantity" 
+          value={newFood.reorderPoint.toString()}
+        />
         <Select id="type" label="Type" placeholderOption="" value={newFood.type} options={[
           {label:"Vegetable", value:"Vegetable"},
           {label:"Grain", value:"Grain"},
