@@ -2,6 +2,7 @@ import React from "react"
 import { render } from "react-dom";
 import { App } from "./App";
 import { About } from "./About";
+import { Nav } from "./Nav";
 import { BrowserRouter, Route } from "react-router-dom";
 
 const headStyle = {color: "blue", marginBottom: 10 };
@@ -25,6 +26,7 @@ function Heading(props: any) {
 //render(<<Heading>Hello</Heading>>,document.getElementById("root"));
 render(
     <BrowserRouter>
+        <Nav />
         <Route path="/about">
             <About />
         </Route>
