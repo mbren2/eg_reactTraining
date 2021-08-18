@@ -11,20 +11,32 @@ export type Food = {
   type: string;
 };
 
+export type NewFood = {
+  name: string;
+  quantity: number;
+  reorderPoint: number;
+  type: string;
+};
+
+const emptyFood: NewFood = {
+  name: "",
+  quantity:0,
+  reorderPoint: 0,
+  type: "",
+}
+
 //Exercise 2:
 //  -Add 2 properties: reorderPoint (number), type (String)
 //  -Display all of this in a table
-
-
 export function App() {
   //Use this useState to deconstruct an array
   const [foods, setFoods] =  useState<Food[]>([]);
-
   //The long-hand version of the line above
   //const foodStateArray = useState<Food[]>([]);
   //const foods = foodStateArray[0];
   //const setFoods = foodStateArray[1];
 
+  const [newFood, setNewFood] = useState<NewFood>(emptyFood);
 
   useEffect(() => {
     async function callGetFoods() {
@@ -63,10 +75,10 @@ export function App() {
       */}
 
       <form>
-        <Input id="name" label="Name" />
-        <Input id="quantity" label="Quantity" />
-        <Input id="minQuantity" label="Min Quantity" />
-        <Select id="type" label="Type" options={[
+        <Input id="name" label="Name" value={newFood.name}/>
+        <Input id="quantity" label="Quantity" value={newFood.quantity.toString()}/>
+        <Input id="minQuantity" label="Min Quantity" value={newFood.reorderPoint.toString()}/>
+        <Select id="type" label="Type" placeholderOption="" value={newFood.type} options={[
           {label:"Vegetable", value:"Vegetable"},
           {label:"Grain", value:"Grain"},
           {label:"Fruit", value:"Fruit"}
