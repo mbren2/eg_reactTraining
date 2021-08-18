@@ -4,6 +4,7 @@ import { App } from "./App";
 import { About } from "./About";
 import { Nav } from "./Nav";
 import { BrowserRouter, Route } from "react-router-dom";
+import { FoodForm } from "./FoodForm";
 
 const headStyle = {color: "blue", marginBottom: 10 };
 
@@ -29,6 +30,9 @@ render(
         <Nav />
         <Route path="/about">
             <About />
+        </Route>
+        <Route path="/food">
+            <FoodForm />
         </Route>
         <Route path="/" exact>
             <App />

@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getFoods, deleteFood, addFood } from "./api/foodsApi";
-import { Input } from "./shared/input";
-import { Select } from "./shared/select";
+import { useEffect, useState } from "react";
+import { getFoods, deleteFood } from "./api/foodsApi";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export type Food = {
   id: number;
@@ -14,19 +10,6 @@ export type Food = {
   type: string;
 };
 
-export type NewFood = {
-  name: string;
-  quantity: number;
-  reorderPoint: number;
-  type: string;
-};
-
-const emptyFood: NewFood = {
-  name: "",
-  quantity:0,
-  reorderPoint: 0,
-  type: "",
-}
 
 //Exercise 2:
 //  -Add 2 properties: reorderPoint (number), type (String)
@@ -38,8 +21,6 @@ export function App() {
   //const foodStateArray = useState<Food[]>([]);
   //const foods = foodStateArray[0];
   //const setFoods = foodStateArray[1];
-
-  const [newFood, setNewFood] = useState<NewFood>(emptyFood);
 
   useEffect(() => {
     async function callGetFoods() {
@@ -61,52 +42,13 @@ export function App() {
     ));
   }
 
-  //We've now implemented a single onChange handler by convention
-  //id corelates to the property in state
-  // you can figure that out by setting a debugger below, hitting the dev tools console and 
-  // seeing that ID is set to the value at this point
-  function onChange(event: 
-    React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) {
-    const { value, id } = event.target;
-    //How do we create a new object that contains one updated property?
-    //You can create a const, then pass that into setNewFood()
-    //const _newFood = {
-    //  ...newFood,
-    //  name: value,
-    //}
-    //setNewFood(_newFood);
-    //Or, you can call the above within the setNewFood() call here, 
-    setNewFood({
-      ...newFood,
-      //Instead of hardcoding "name" below and then creating a different onChange function
-      //for every type of onChange in our form, we can snag that property from the event like so,
-      //Note, this is using the id from above => const { value, id } = event.target;
-      [id]: value,
-    });
-  }
 
-async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  // Exercise 2: Save form data. 
-  // Tip: http://localhost:3001/foods/
-  // Tip: Use POST
-  event.preventDefault();
 
-  try {
-    const addedFood = await addFood(newFood);
-    setFoods([...foods, addedFood]);
-    setNewFood(emptyFood);
-    toast.success("Food saved! 🦄");
-  } catch (error) {
-    toast.error("Failed to add");
-  }
-}
 
   return (
     //Use this empty tag (opposed to using a div) to give these elements a parent element
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
     <>
-      <ToastContainer />
       <h1>Pantry Manager</h1>
 
       {/* Day 2|Exercise 1: Create a reusable select and consume it below for food type.
@@ -119,41 +61,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     options:SelectOption[];
       */}
 
-      <form onSubmit={handleSubmit}>
-        <Input 
-          onChange={onChange} 
-          id="name" 
-          label="Name" 
-          value={newFood.name}
-        />
-        <Input 
-          onChange={onChange} 
-          id="quantity" 
-          label="Quantity" 
-          type="number"
-          value={newFood.quantity.toString()}
-        />
-        <Input 
-          onChange={onChange} 
-          id="reorderPoint" 
-          label="Min Quantity" 
-          type="number"
-          value={newFood.reorderPoint.toString()}
-        />
-        <Select 
-          id="type" 
-          label="Type" 
-          onChange={onChange}
-          placeholderOption="Select Type" 
-          value={newFood.type} 
-          options={[
-            {label:"Vegetable", value:"Vegetable"},
-            {label:"Grain", value:"Grain"},
-            {label:"Fruit", value:"Fruit"}
-            ]}
-        />
-        <input className="btn btn-primary" type="submit" value="Save Food" />
-      </form>
+     
 
       <table>
         <thead>

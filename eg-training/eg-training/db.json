@@ -20,6 +20,13 @@
       "reorderPoint": "2",
       "type": "Grain",
       "id": 3
+    },
+    {
+      "name": "Potato",
+      "quantity": "10",
+      "reorderPoint": "2",
+      "type": "Grain",
+      "id": 4
     }
   ]
 }
