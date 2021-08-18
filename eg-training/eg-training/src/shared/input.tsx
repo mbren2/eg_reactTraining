@@ -5,18 +5,20 @@ type InputProps = {
     id: string;
     value: string;
     onChange: React.ChangeEventHandler;
+    type?: "text" | "number" | "email" | "phone" | "date";
 }
 
-export function Input(props: InputProps) {
+//Destructure props in the function signature 
+export function Input({label, id, value, onChange, type = "text"}: InputProps) {
     return(
         <div>
-            <label htmlFor={props.id}>{props.label}</label>
+            <label htmlFor={id}>{label}</label>
             <br />
             <input 
-                onChange={props.onChange} 
-                id={props.id} 
-                type="text" 
-                value={props.value} 
+                onChange={onChange} 
+                id={id} 
+                type={type} 
+                value={value} 
             />
         </div>
     );

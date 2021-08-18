@@ -62,7 +62,9 @@ export function App() {
   //id corelates to the property in state
   // you can figure that out by setting a debugger below, hitting the dev tools console and 
   // seeing that ID is set to the value at this point
-  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChange(event: 
+    React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) {
     const { value, id } = event.target;
     //How do we create a new object that contains one updated property?
     //You can create a const, then pass that into setNewFood()
@@ -108,19 +110,27 @@ export function App() {
           onChange={onChange} 
           id="quantity" 
           label="Quantity" 
+          type="number"
           value={newFood.quantity.toString()}
         />
         <Input 
           onChange={onChange} 
-          id="minQuantity" 
+          id="reorderPoint" 
           label="Min Quantity" 
+          type="number"
           value={newFood.reorderPoint.toString()}
         />
-        <Select id="type" label="Type" placeholderOption="" value={newFood.type} options={[
-          {label:"Vegetable", value:"Vegetable"},
-          {label:"Grain", value:"Grain"},
-          {label:"Fruit", value:"Fruit"}
-          ]}
+        <Select 
+          id="type" 
+          label="Type" 
+          onChange={onChange}
+          placeholderOption="Select Type" 
+          value={newFood.type} 
+          options={[
+            {label:"Vegetable", value:"Vegetable"},
+            {label:"Grain", value:"Grain"},
+            {label:"Fruit", value:"Fruit"}
+            ]}
         />
       </form>
 
