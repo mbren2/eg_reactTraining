@@ -1,46 +1,39 @@
 {
   "foods": [
     {
-      "id": 1,
-      "name": "carrot",
-      "quantity": 1,
-      "reorderPoint": 4,
-      "type": "Veggies"
+      "name": "fdsa",
+      "quantity": "5",
+      "reorderPoint": "4",
+      "type": "Vegetable",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "potato",
-      "quantity": "9",
-      "reorderPoint": 8,
-      "type": "Grain"
+      "name": "fdsa",
+      "quantity": "5",
+      "reorderPoint": "4",
+      "type": "Vegetable",
+      "id": 2
     },
     {
-      "name": "test",
-      "quantity": "2",
+      "name": "test1",
+      "quantity": "5",
       "reorderPoint": "2",
-      "type": "Grain",
+      "type": "Vegetable",
       "id": 3
     },
     {
-      "name": "tes2",
-      "quantity": "3",
-      "reorderPoint": "5",
-      "type": "Fruit",
+      "name": "test1",
+      "quantity": "5",
+      "reorderPoint": "2",
+      "type": "Vegetable",
+      "id": 4
+    },
+    {
+      "name": "teafdaf",
+      "quantity": "1",
+      "reorderPoint": "1",
+      "type": "Vegetable",
       "id": 5
-    },
-    {
-      "name": "test12",
-      "quantity": "1",
-      "reorderPoint": 0,
-      "type": "Fruit",
-      "id": 8
-    },
-    {
-      "name": "test12",
-      "quantity": "1",
-      "reorderPoint": 0,
-      "type": "Fruit",
-      "id": 9
     }
   ]
 }

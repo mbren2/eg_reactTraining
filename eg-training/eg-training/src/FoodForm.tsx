@@ -49,8 +49,7 @@ export function FoodForm() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
           try {
-            foodId ? await editFood({ ...food, id: foodId}) : await addFood(food);
-            await addFood(food);
+            foodId ? await editFood({ ...food, id: foodId }) : await addFood(food);
             toast.success("Food saved! 🦄");
             history.push("/"); //Redirect to home
           } catch (error) {
