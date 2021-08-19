@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getFoods, deleteFood } from "./api/foodsApi";
 
 
@@ -31,25 +32,15 @@ export function App() {
     //using an empty array for useEffect since we only want this to run once 
   }, []);
 
-  function renderFoods() {
-    {
-      /* Excercise1: Display quantity next to food with dash in between*/
-    }
-    return foods.map((food) => (
-      <li>
-        {food.name} - {food.quantity} - {food.reorderPoint} - {food.type}
-      </li>
-    ));
-  }
-
-
-
 
   return (
     //Use this empty tag (opposed to using a div) to give these elements a parent element
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
     <>
       <h1>Pantry Manager</h1>
+
+      {/* Day 3 Exercise 1: Add a link to the food page here*/}
+      <Link to="/food">Add Food</Link>
 
       {/* Day 2|Exercise 1: Create a reusable select and consume it below for food type.
           1. Vegetable
@@ -87,15 +78,22 @@ export function App() {
               >
                 Delete
               </button>
-              <td>{food.name}</td>
-              <td>{food.quantity}</td>
+              {/* Day 3 Exercise 3: Link to edit page on each name*/}
+              <td>
+                <Link to={`/food/${food.id}`}>
+                  {food.name}
+                </Link>
+              </td>
+               {/*  style quantity in bold red when it's lower than the reorderPoint */ }
+              <td style= {food.reorderPoint > food.quantity ? {color: 'red'} :{}}>
+                {food.quantity}
+              </td>
               <td>{food.reorderPoint}</td>
               <td>{food.type}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      {/*<ul>{renderFoods()}</ul>*/}
     </>
   );
 }

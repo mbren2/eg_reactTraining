@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { addFood } from "./api/foodsApi";
+import { addFood, editFood, getFood } from "./api/foodsApi";
 import { Input } from "./shared/input";
 import { Select } from "./shared/select";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { useEffect } from "react";
+
+/* Day 3 Exercise 4: Hydrate the form for editFood
+1. Get the matching food via fetch http://localhost:3001/food/{food.id}
+  -Create the func that does the fetch
+  -put the call in useEffect
+2. Populate the form
+*/
 
 export type NewFood = {
     name: string;
@@ -20,20 +28,35 @@ const emptyFood: NewFood = {
   }
 
 export function FoodForm() {
-    const [newFood, setNewFood] = useState<NewFood>(emptyFood);
+    const [food, setFood] = useState<NewFood>(emptyFood);
     const history = useHistory(); 
+
+    //This is grabbing the food that's wanting to be edited by using the foodID in the URL 
+    const { foodId } = useParams() as any;
+    //Once we have that ID, using state, we can populate the 
+    //form with the food that's wanting to be edited
+    useEffect(() => {
+      async function callGetFood() {
+        const _food = await getFood(foodId);
+        setFood(_food);
+      }
+      if(foodId) callGetFood();
+    }, [foodId]);
+
+
+    //Day 3 Exercise 2: Use foodId to set the heading to either add or edit food
     
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        try {
-          await addFood(newFood);
-          toast.success("Food saved! 🦄");
-          history.push("/"); //Redirect to home
-        } catch (error) {
-          toast.error("Failed to add");
-        }
+          try {
+            foodId ? await editFood({ ...food, id: foodId}) : await addFood(food);
+            await addFood(food);
+            toast.success("Food saved! 🦄");
+            history.push("/"); //Redirect to home
+          } catch (error) {
+            toast.error("Failed to add");
+          }
       }
-
 
   function onChange(event: 
     React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -47,41 +70,42 @@ export function FoodForm() {
     //}
     //setNewFood(_newFood);
     //Or, you can call the above within the setNewFood() call here, 
-    setNewFood({
-      ...newFood,
+    setFood({
+      ...food,
       [id]: value,
     });
   }
 
     return(
 
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <h1>{foodId ? "Edit Food":"Add Food"}</h1>
         <Input 
           onChange={onChange} 
           id="name" 
           label="Name" 
-          value={newFood.name}
+          value={food.name}
         />
         <Input 
           onChange={onChange} 
           id="quantity" 
           label="Quantity" 
           type="number"
-          value={newFood.quantity.toString()}
+          value={food.quantity.toString()}
         />
         <Input 
           onChange={onChange} 
           id="reorderPoint" 
           label="Min Quantity" 
           type="number"
-          value={newFood.reorderPoint.toString()}
+          value={food.reorderPoint.toString()}
         />
         <Select 
           id="type" 
           label="Type" 
           onChange={onChange}
           placeholderOption="Select Type" 
-          value={newFood.type} 
+          value={food.type} 
           options={[
             {label:"Vegetable", value:"Vegetable"},
             {label:"Grain", value:"Grain"},
@@ -90,6 +114,5 @@ export function FoodForm() {
         />
         <input className="btn btn-primary" type="submit" value="Save Food" />
       </form>
-
     );
 }

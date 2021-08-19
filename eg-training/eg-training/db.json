@@ -10,9 +10,9 @@
     {
       "id": 2,
       "name": "potato",
-      "quantity": 5,
+      "quantity": "9",
       "reorderPoint": 8,
-      "type": "Veggies"
+      "type": "Grain"
     },
     {
       "name": "test",
@@ -22,11 +22,25 @@
       "id": 3
     },
     {
-      "name": "Potato",
-      "quantity": "10",
-      "reorderPoint": "2",
-      "type": "Grain",
-      "id": 4
+      "name": "tes2",
+      "quantity": "3",
+      "reorderPoint": "5",
+      "type": "Fruit",
+      "id": 5
+    },
+    {
+      "name": "test12",
+      "quantity": "1",
+      "reorderPoint": 0,
+      "type": "Fruit",
+      "id": 8
+    },
+    {
+      "name": "test12",
+      "quantity": "1",
+      "reorderPoint": 0,
+      "type": "Fruit",
+      "id": 9
     }
   ]
 }
