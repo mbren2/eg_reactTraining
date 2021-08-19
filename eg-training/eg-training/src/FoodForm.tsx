@@ -45,7 +45,6 @@ export function FoodForm() {
 
 
     //Day 3 Exercise 2: Use foodId to set the heading to either add or edit food
-    
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
           try {

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getFoods, deleteFood } from "./api/foodsApi";
-
+import { useQuery } from "react-query"
+import { data } from "cypress/types/jquery";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 export type Food = {
   id: number;
@@ -17,26 +19,26 @@ export type Food = {
 //  -Display all of this in a table
 export function Home() {
   //Use this useState to deconstruct an array
-  const [foods, setFoods] =  useState<Food[]>([]);
+  //const [foods, setFoods] =  useState<Food[]>([]);
   //The long-hand version of the line above
   //const foodStateArray = useState<Food[]>([]);
   //const foods = foodStateArray[0];
   //const setFoods = foodStateArray[1];
 
-  useEffect(() => {
-    async function callGetFoods() {
-      const data = await getFoods();
-      setFoods(data);
-    }
-    callGetFoods();
-    //using an empty array for useEffect since we only want this to run once 
-  }, []);
+  //Implementing the below to get rid of the const[foods, setFoods]... above
+  //And then to create a work around to the useEffect below to handle async calls better
+  const { data: foods, isLoading } = useQuery("foods", getFoods); 
+
+  if(isLoading || !foods){
+    return <p>Loading... </p>;
+  }
 
   //Day 3 Exercise 6: Display "uh oh, no food in pantry" when no food exists and hide the table
   return (
     //Use this empty tag (opposed to using a div) to give these elements a parent element
     //Without the empty tag or div here, we get an error bc h1 and ul need a parent tag
     <>
+      <ReactQueryDevtools />
       <h1>Pantry Manager</h1>
 
       {/* Day 3 Exercise 1: Add a link to the food page here*/}
@@ -74,7 +76,7 @@ export function Home() {
                 await deleteFood(food.id);
                 //returns a new array w/ the id that was just deleted ommitted 
                 const newFoods = foods.filter((f) => f.id !== food.id);
-                setFoods(newFoods);
+                //setFoods(newFoods);
                 //need to remove the deleted food from the state
               }}
               >

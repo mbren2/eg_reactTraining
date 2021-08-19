@@ -15,25 +15,25 @@
       "id": 2
     },
     {
-      "name": "test1",
-      "quantity": "5",
-      "reorderPoint": "2",
-      "type": "Vegetable",
-      "id": 3
-    },
-    {
-      "name": "test1",
-      "quantity": "5",
-      "reorderPoint": "2",
-      "type": "Vegetable",
-      "id": 4
-    },
-    {
-      "name": "teafdaf",
+      "name": "lowtest",
       "quantity": "1",
+      "reorderPoint": "5",
+      "type": "Grain",
+      "id": 7
+    },
+    {
+      "name": "pasta",
+      "quantity": "1",
+      "reorderPoint": "6",
+      "type": "Grain",
+      "id": 8
+    },
+    {
+      "name": "loadingtest",
+      "quantity": "2",
       "reorderPoint": "1",
       "type": "Vegetable",
-      "id": 5
+      "id": 9
     }
   ]
 }
